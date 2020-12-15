@@ -25,6 +25,7 @@ function switchBodyColor() {
   if (isActive) {
     return;
   }
+
   /*Функция смены цвета body вызывается так же здесь, 
   чтобы в первый раз цвет поменялся сразу, 
   и не было впечатления, что отклик от кнопки start "тупит"*/
@@ -33,6 +34,8 @@ function switchBodyColor() {
   intervalId = setInterval(changeBodyColor, 1000, colors);
 
   isActive = true;
+
+  addDisabled(startRef);
 }
 
 // Функция, которая очищает интервал
@@ -40,10 +43,21 @@ function stopSwitchBodyColor() {
   clearInterval(intervalId);
 
   isActive = false;
+
+  removeDisabled(startRef);
 }
 
 // Функция, которая меняет цвет body
 function changeBodyColor(colorsArr) {
   bodyRef.style.backgroundColor =
     colorsArr[randomIntegerFromInterval(0, colorsArr.length - 1)];
+}
+
+// Функции для добавления и удаления атрибута disabled на элемент
+function addDisabled(element) {
+  element.setAttribute("disabled", "");
+}
+
+function removeDisabled(element) {
+  element.removeAttribute("disabled");
 }
